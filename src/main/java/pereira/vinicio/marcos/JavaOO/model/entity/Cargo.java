@@ -25,11 +25,11 @@ public class Cargo {
     @Column(name = "descr")
     private String descr;
 
-    public static final BigDecimal LIMITE_CARGO_SALARIO = new BigDecimal(9999999999.99);
+    public static final BigDecimal LIMITE_CARGO_SALARIO = new BigDecimal(99999999.99);
     @Column(name = "salario")
     private BigDecimal salario;
 
-    public static final BigDecimal LIMITE_CARGO_ADICIONAL_ANO = new BigDecimal(9999999999.99);
+    public static final BigDecimal LIMITE_CARGO_ADICIONAL_ANO = new BigDecimal(99999999.99);
     @Column(name = "adic_ano")
     private BigDecimal adicionalAno;
 
