@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -21,31 +23,31 @@ import pereira.vinicio.marcos.JavaOO.model.entity.Cargo;
 @CrossOrigin
 public class ListasController {
 
-    private EntityManager em;
-    
+    private EntityManager em = Persistence.createEntityManagerFactory("default").createEntityManager();
+
     @GetMapping(value = "/salarios-beneficios/{ano}/{mes}/{funcionarios}/")
-    public List<Cargo> salariosBeneficios(@PathVariable String ano
+    public String salariosBeneficios(@PathVariable String ano
                                     ,@PathVariable String mes
                                     ,@PathVariable Long funcionarios[]
                                     ) throws Exception {
         System.out.println("Lista Salários Benefícios " + mes.toString() + "/" + ano.toString() + " : " + Arrays.asList(funcionarios));                                        
-        List<Cargo> cargos = new ArrayList<>();
+        List<Object> cargos = new ArrayList<>();
 
         try {
-            //TypedQuery<Cargo> query = em.createQuery( "select c from Cargo c",Cargo.class);
-            Query query = em.createNativeQuery( "select c from cargo c",Cargo.class);
-            cargos = query.getResultList();
+            TypedQuery<Cargo> query = em.createQuery( "select c from Cargo c",Cargo.class);
+            return "dois";
+            //Query query = em.createNativeQuery( "select c from cargo c");
+            //cargos = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             cargos = new ArrayList<>();
             Cargo c = new Cargo(1L);
-//System.out.println(e.getMessage());            
-            //c.setDescr(e.getMessage().substring(0,20));
+            c.setDescr(e.toString());
             cargos.add(c);
-
         }
 
-        return cargos;
+        //return cargos;
+        return "nove";
     }
 
     @GetMapping(value = "/salarios-no-mes")
