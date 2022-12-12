@@ -23,7 +23,7 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_fun")
     private Funcionario funcionario;
 
@@ -34,8 +34,10 @@ public class Venda {
     private String mes;
 
     public static final BigDecimal LIMITE_VENDA_VALOR = new BigDecimal(9999999999.99);
-    @Column(name = "venda")
-    private BigDecimal venda;
+    @Column(name = "valor")
+    private BigDecimal valor;
+
+    //GETTERS & SETTERS
     public Long getId() {
         return id;
     }
@@ -60,14 +62,14 @@ public class Venda {
     public void setMes(String mes) {
         this.mes = mes;
     }
-    public BigDecimal getVenda() {
-        return venda;
+    public BigDecimal getValor() {
+        return valor;
     }
-    public void setVenda(BigDecimal venda) throws Exception {
-        if (venda.floatValue() > LIMITE_VENDA_VALOR.floatValue()){
+    public void setValor(BigDecimal valor) throws Exception {
+        if (valor.floatValue() > LIMITE_VENDA_VALOR.floatValue()){
             throw new Exception("Valor da venda acima do limite do campo de " + LIMITE_VENDA_VALOR);
         }
-        this.venda = venda;
+        this.valor = valor;
     }
 
     
