@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pereira.vinicio.marcos.JavaOO.model.PersistenceManager;
 import pereira.vinicio.marcos.JavaOO.model.entity.Cargo;
 
 @RestController
@@ -23,31 +21,25 @@ import pereira.vinicio.marcos.JavaOO.model.entity.Cargo;
 @CrossOrigin
 public class ListasController {
 
-    private EntityManager em = Persistence.createEntityManagerFactory("default").createEntityManager();
-
     @GetMapping(value = "/salarios-beneficios/{ano}/{mes}/{funcionarios}/")
-    public String salariosBeneficios(@PathVariable String ano
-                                    ,@PathVariable String mes
-                                    ,@PathVariable Long funcionarios[]
-                                    ) throws Exception {
+    public List<Cargo> salariosBeneficios(@PathVariable String ano
+                                         ,@PathVariable String mes
+                                         ,@PathVariable Long funcionarios[]
+                                         ) {
         System.out.println("Lista Salários Benefícios " + mes.toString() + "/" + ano.toString() + " : " + Arrays.asList(funcionarios));                                        
-        List<Object> cargos = new ArrayList<>();
+        final EntityManager em = PersistenceManager.getInstance().getEntityManager();
+        List<Cargo> cargos; // = new ArrayList<>();
 
         try {
             TypedQuery<Cargo> query = em.createQuery( "select c from Cargo c",Cargo.class);
-            return "dois";
-            //Query query = em.createNativeQuery( "select c from cargo c");
-            //cargos = query.getResultList();
+            cargos = query.getResultList();
+            
         } catch (Exception e) {
-            e.printStackTrace();
-            cargos = new ArrayList<>();
-            Cargo c = new Cargo(1L);
-            c.setDescr(e.toString());
-            cargos.add(c);
+            //e.printStackTrace();
+            cargos = new ArrayList<Cargo>();
         }
 
-        //return cargos;
-        return "nove";
+        return cargos;
     }
 
     @GetMapping(value = "/salarios-no-mes")
