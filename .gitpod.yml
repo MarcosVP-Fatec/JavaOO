@@ -1,5 +1,9 @@
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
 ports:
 - port: 8080
 image: gitpod/workspace-mysql
 tasks:
   - init: mysql < Reset.sql
+
