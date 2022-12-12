@@ -1,12 +1,15 @@
 package pereira.vinicio.marcos.JavaOO.model.entity;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +35,11 @@ public class Cargo {
 
     @Column(name = "benef_pct")
     private BigDecimal beneficioPorcento;
+
+    @OneToMany(mappedBy = "cargo", fetch = FetchType.LAZY)
+    private Set<Funcionario> funcionarios;
+
+
 
     //CONSTRUCTOR
     public Cargo(){}

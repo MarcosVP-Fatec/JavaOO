@@ -31,7 +31,8 @@ public class ListasController {
         List<Cargo> cargos; // = new ArrayList<>();
 
         try {
-            TypedQuery<Cargo> query = em.createQuery( "select c from Cargo c",Cargo.class);
+            String q = "select c from Cargo c";
+            TypedQuery<Cargo> query = em.createQuery( q ,Cargo.class);
             cargos = query.getResultList();
             
         } catch (Exception e) {
