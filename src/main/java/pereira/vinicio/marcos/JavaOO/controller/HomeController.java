@@ -15,8 +15,10 @@ public class HomeController {
     @GetMapping
     ResponseEntity<String> benVindo(){
 
-        String body = "<h1>Java Orientado a Objetos</h1><br><br>" +
-                      "<h2>Rotas para teste:</h2><br><br>";
+        String body = "<h1>Java Orientado a Objetos</h1><br><br>"
+                    + "<h2>Rotas para teste:</h2><br><ol>"
+                    + "<li>Lista Func, ano, mês, Salário, benefício:<br>/JavaOO/listasalariosbeneficios/</li>"
+                    + "</ol>";
 
         return new ResponseEntity<String>(body, HttpStatus.OK);
 
