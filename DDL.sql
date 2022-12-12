@@ -44,7 +44,7 @@ create table venda(
     , id_fun                bigint        not null
     , ano                   varchar(4)    not null
     , mes                   varchar(2)    not null
-    , valor                 decimal(10,2) not null
+    , valor                 decimal(12,2) not null
 );
 
 alter table venda add constraint venda_fk1 foreign key (id_fun) references funcionario(id);
