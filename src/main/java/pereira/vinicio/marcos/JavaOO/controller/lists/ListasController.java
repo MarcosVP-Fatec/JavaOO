@@ -1,9 +1,12 @@
 package pereira.vinicio.marcos.JavaOO.controller.lists;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,24 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pereira.vinicio.marcos.JavaOO.model.entity.Cargo;
-import pereira.vinicio.marcos.JavaOO.service.ListasService;
 
 @RestController
 @RequestMapping(value = "/lista")
 @CrossOrigin
 public class ListasController {
-
-	@Autowired
-	ListasService listasService;
+    
+    private EntityManager em;
 
     @GetMapping(value = "/salarios-beneficios/{ano}/{mes}/{funcionarios}/")
-    public String salariosBeneficios(@PathVariable String ano
+    public List<Cargo> salariosBeneficios(@PathVariable String ano
                                     ,@PathVariable String mes
                                     ,@PathVariable Long funcionarios[]
                                     ){
         System.out.println("Lista Salários Benefícios " + mes.toString() + "/" + ano.toString() + " : " + Arrays.asList(funcionarios));                                        
-        return "Lista Salários Benefícios " + mes.toString() + "/" + ano.toString() + " : " + Arrays.asList(funcionarios);
-        //return listasService.salariosBeneficios(ano, mes, funcionarios);
+        Query query = (Query) em.createQuery( "select C from cargo C" );
+        
+System.out.println("1111");
+        List<Cargo> cargos;
+System.out.println("2222");
+        try {
+            //cargos = query.getResultList();
+            cargos = new ArrayList<Cargo>();
+        } catch (Exception e) {
+            cargos = new ArrayList<Cargo>();
+        }
+
+        return cargos;
     }
 
     @GetMapping(value = "/salarios-no-mes")
