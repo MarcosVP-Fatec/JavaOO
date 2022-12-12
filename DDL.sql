@@ -14,7 +14,7 @@ create table cargo (
     , descr                 varchar(20)   not null
     , salario               decimal(10,2) not null 
     , adic_ano              decimal(10,2) not null 
-    , benef_pct             decimal(10,2) not null
+    , benef_pct             decimal(3,2) not null
 );
 
 alter table cargo add constraint cargo_uk1 unique (descr);
