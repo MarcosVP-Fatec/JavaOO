@@ -1,47 +1,81 @@
 package pereira.vinicio.marcos.JavaOO.controller.lists;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pereira.vinicio.marcos.JavaOO.model.PersistenceManager;
-import pereira.vinicio.marcos.JavaOO.model.entity.Cargo;
+import pereira.vinicio.marcos.JavaOO.controller.lists.dto.ListaFuncionarioSalarioBeneficioDto;
+import pereira.vinicio.marcos.JavaOO.model.entity.Funcionario;
+import pereira.vinicio.marcos.JavaOO.model.repository.FuncionarioRepository;
 
 @RestController
 @RequestMapping(value = "/lista")
 @CrossOrigin
 public class ListasController {
 
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
     @GetMapping(value = "/salarios-beneficios/{ano}/{mes}/{funcionarios}/")
-    public List<Cargo> salariosBeneficios(@PathVariable String ano
+    //@SuppressWarnings("unchecked")
+    public List<ListaFuncionarioSalarioBeneficioDto> salariosBeneficios(
+                                          @PathVariable String ano
                                          ,@PathVariable String mes
                                          ,@PathVariable Long funcionarios[]
                                          ) {
         System.out.println("Lista Salários Benefícios " + mes.toString() + "/" + ano.toString() + " : " + Arrays.asList(funcionarios));                                        
-        final EntityManager em = PersistenceManager.getInstance().getEntityManager();
-        List<Cargo> cargos; // = new ArrayList<>();
+        List<ListaFuncionarioSalarioBeneficioDto> lista = new ArrayList<ListaFuncionarioSalarioBeneficioDto>();
 
         try {
-            String q = "select c from Cargo c";
-            TypedQuery<Cargo> query = em.createQuery( q ,Cargo.class);
-            cargos = query.getResultList();
+            List<Funcionario> dados = funcionarioRepository.listaSalariosBeneficios(ano);
+            for (Funcionario funcionario : dados) {
+                    lista.add( 
+                        new ListaFuncionarioSalarioBeneficioDto( funcionario.getNome()
+                                                                , funcionario.getCargo().getSalario() )                       
+                    );
+            }
             
         } catch (Exception e) {
-            //e.printStackTrace();
-            cargos = new ArrayList<Cargo>();
+            e.printStackTrace();
         }
 
-        return cargos;
+        return lista;
     }
+
+//     @GetMapping(value = "/salarios-beneficios/{ano}/{mes}/{funcionarios}/")
+//     public List<Funcionario> salariosBeneficios(
+//                                           @PathVariable String ano
+//                                          ,@PathVariable String mes
+//                                          ,@PathVariable Long funcionarios[]
+//                                          ) {
+//         System.out.println("Lista Salários Benefícios " + mes.toString() + "/" + ano.toString() + " : " + Arrays.asList(funcionarios));                                        
+//         final EntityManager em = PersistenceManager.getInstance().getEntityManager();
+//         List<Funcionario> lista;
+
+//         try {
+//             String q = "select F from Funcionario F inner join F.cargo C";
+
+// System.out.println("Gerou string "+q);
+//             TypedQuery<Funcionario> query = em.createQuery( q ,Funcionario.class);
+// System.out.println("Gerou query "+query);                        
+//             lista = query.getResultList();
+// System.out.println("Gerou resultado ");            
+            
+//         } catch (Exception e) {
+//             //e.printStackTrace();
+//             lista = new ArrayList<Funcionario>();
+//         }
+
+//         return lista;
+//     }
 
     @GetMapping(value = "/salarios-no-mes")
     public String salariosNoMes(){

@@ -22,7 +22,6 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public static final int TAMANHO_FUNCIONARIO_NOME = 40;
     @Column(name = "nome")
     private String nome;
 
@@ -48,10 +47,7 @@ public class Funcionario {
         return nome;
     }
 
-    public void setNome(String nome) throws Exception {
-        if (nome.length() > TAMANHO_FUNCIONARIO_NOME){
-            throw new Exception("Tamanho do nome do funcionário maior que o limite de " + TAMANHO_FUNCIONARIO_NOME);
-        }
+    public void setNome(String nome) {
         this.nome = nome;
     }
 

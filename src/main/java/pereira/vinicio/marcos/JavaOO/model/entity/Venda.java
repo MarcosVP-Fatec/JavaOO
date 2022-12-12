@@ -33,7 +33,6 @@ public class Venda {
     @Column(name = "mes")
     private String mes;
 
-    public static final BigDecimal LIMITE_VENDA_VALOR = new BigDecimal(9999999999.99);
     @Column(name = "valor")
     private BigDecimal valor;
 
@@ -65,10 +64,7 @@ public class Venda {
     public BigDecimal getValor() {
         return valor;
     }
-    public void setValor(BigDecimal valor) throws Exception {
-        if (valor.floatValue() > LIMITE_VENDA_VALOR.floatValue()){
-            throw new Exception("Valor da venda acima do limite do campo de " + LIMITE_VENDA_VALOR);
-        }
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
