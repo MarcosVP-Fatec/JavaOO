@@ -15,7 +15,7 @@ public class HomeController {
     @GetMapping
     ResponseEntity<String> benVindo(){
 
-        String body = "<h1>Java Orientado a Objetos</h1><br><br>"
+        String body = "<h1>Java Orientado a Objetos</h1><br>"
                     + "<h2>Rotas para teste:</h2><br><ol>"
                     + "<li>Método que recebe uma lista de funcionários, mês e ano e retorna o valor total pago (salário e benefício) a esses funcionários no mês:<br><b>/JavaOO/lista/salarios-beneficios/</b></li>"
                     + "<li>Método que recebe uma lista de funcionários, mês e ano e retorna o total pago somente em salários no mês:<br><b>/JavaOO/lista/salarios-no-mes/</b></li>"

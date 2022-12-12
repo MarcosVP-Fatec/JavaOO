@@ -15,4 +15,30 @@ public class ListasController {
         return "Lista Salarios Benefícios";
     }
 
+    @GetMapping(value = "/salarios-no-mes")
+    public String salariosNoMes(){
+        return "Lista Salarios no Mês";
+    }
+
+    @GetMapping(value = "/beneficios-no-mes")
+    public String beneficiosNoMes(){
+        return "Lista Benefícios no Mês";
+    }
+
+    @GetMapping(value = "/maior-recebimento-no-mes")
+    public String maiorRecebimentoNoMes(){
+        return "Lista Maior Recebimento no Mês";
+    }
+
+    @GetMapping(value = "/maior-beneficio-no-mes")
+    public String maiorBeneficioNoMes(){
+        return "Lista Maior Benefício no Mês";
+    }
+
+    @GetMapping(value = "/maior-venda-no-mes")
+    public String maiorVendaNoMes(){
+        return "Lista Maior Venda no Mês";
+    }
+    
+
 }
