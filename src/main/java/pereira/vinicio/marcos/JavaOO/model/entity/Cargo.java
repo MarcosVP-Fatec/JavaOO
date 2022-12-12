@@ -37,6 +37,12 @@ public class Cargo {
     @Column(name = "benef_pct")
     private BigDecimal beneficioPorcento;
 
+    //CONSTRUCTOR
+    public Cargo(){}
+    public Cargo(Long id){
+        this.setId(id);
+    }
+
     //GETTERS & SETTERS
     public Long getId() {
         return id;
